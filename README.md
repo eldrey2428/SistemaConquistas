@@ -1,153 +1,132 @@
-# 🎮 Sistema de Conquistas de Jogos
+# 🎮 Sistema de Conquistas de Jogos (PHP + POO)
 
-Um sistema simples de gerenciamento de conquistas desenvolvido em **PHP** utilizando os conceitos de **Programação Orientada a Objetos (POO)**.
-
-O projeto simula o funcionamento de conquistas em jogos, permitindo controlar progresso, desbloqueios e exibição de informações do jogador.
+Projeto simples desenvolvido em PHP utilizando **Programação Orientada a Objetos (POO)**.  
+O sistema simula conquistas de jogos, controlando o progresso do jogador e o desbloqueio das conquistas.
 
 ---
 
 # 📌 Funcionalidades
 
-✅ Cadastro de jogos  
-✅ Cadastro de jogadores  
-✅ Cadastro de conquistas  
-✅ Controle de progresso das conquistas  
-✅ Desbloqueio automático ao atingir 100%  
-✅ Registro de data e hora do desbloqueio  
-✅ Exibição detalhada das conquistas  
+- Cadastro de jogo via formulário
+- Cadastro de jogador via formulário
+- Cadastro de conquista via formulário
+- Controle de progresso (0% a 100%)
+- Desbloqueio automático ao atingir 100%
+- Registro de data e hora do desbloqueio
+- Exibição dos dados em tela
 
 ---
 
-# 🛠️ Tecnologias Utilizadas
+# 🧠 Conceitos utilizados
 
-- PHP
-- Programação Orientada a Objetos (POO)
+- Classes e Objetos
+- Encapsulamento
+- Associação entre classes
+- Métodos getters e setters
+- Uso de `POST` em formulário HTML
+- Lógica de progressão
 
 ---
 
-# 📂 Estrutura do Projeto
+# 🗂 Estrutura do projeto
 
 ```txt
-📁 Sistema-Conquistas
+📁 projeto-conquistas
 │
-├── 📄 index.php
-├── 📄 Jogo.php
-├── 📄 Jogador.php
-├── 📄 Progresso.php
-└── 📄 Conquista.php
+├── index.php
+├── Jogo.php
+├── Jogador.php
+├── Progresso.php
+└── Conquista.php
 ```
 
 ---
 
-# 🧩 Classes do Sistema
+# 🧩 Como funciona o sistema
 
-## 🎯 Classe: Jogo
+O usuário preenche um formulário com:
 
-Representa um jogo dentro do sistema.
+- 🎮 Nome do jogo
+- 👤 Nome do jogador
+- 🏆 Nome da conquista
+- 📈 Porcentagem do progresso
 
-### Atributos:
-- `id`
-- `nome`
+O sistema então:
 
----
-
-## 👤 Classe: Jogador
-
-Representa um jogador.
-
-### Atributos:
-- `id`
-- `nome`
+1. Cria os objetos `Jogo`, `Jogador`, `Progresso` e `Conquista`
+2. Verifica o progresso
+3. Se atingir 100%, marca como desbloqueada
+4. Registra a data e hora do desbloqueio
+5. Exibe os dados na tela
 
 ---
 
-## 📈 Classe: Progresso
+# 🧾 Exemplo de formulário
 
-Responsável por controlar o progresso da conquista.
+```html
+<form method="POST">
 
-### Atributos:
-- `porcentagem`
-- `desbloqueada`
-- `dataDesbloqueio`
+    <label>Nome do Jogo:</label><br>
+    <input type="text" name="nomeJogo"><br><br>
 
-### Métodos:
-- `atualizarProgresso()`
-- `marcarComoCompleto()`
+    <label>Nome do Jogador:</label><br>
+    <input type="text" name="nomeJogador"><br><br>
 
----
+    <label>Nome da Conquista:</label><br>
+    <input type="text" name="nomeConquista"><br><br>
 
-## 🏆 Classe: Conquista
+    <label>Progresso (%):</label><br>
+    <input type="number" name="progresso"><br><br>
 
-Representa uma conquista do jogo.
+    <button type="submit">Cadastrar</button>
 
-### Atributos:
-- `id`
-- `titulo`
-- `descricao`
-- `jogo`
-- `jogador`
-- `progresso`
-
-### Métodos:
-- `adicionarConquista()`
-- `listarConquista()`
-- `atualizarProgresso()`
-- `desbloquearConquista()`
-- `exibirDetalhes()`
+</form>
+```
 
 ---
 
-# ▶️ Como Executar o Projeto
+# ⚙️ Lógica do Progresso
 
-## 1️⃣ Coloque todos os arquivos na mesma pasta
+- Começa como `false` (não desbloqueada)
+- Data começa como `null`
+- Ao atingir 100%:
+  - desbloqueada = true
+  - dataDesbloqueio recebe data/hora atual
 
 ---
 
-## 2️⃣ Execute o servidor PHP
+# 💻 Exemplo de saída
 
-No terminal, utilize:
+```txt
+🎮 Jogo: GTA 7
+
+👤 Jogador: Fulano
+
+🏆 Conquista: Concluir Modo Campanha
+
+📈 Progresso: 100%
+
+✅ Status: Desbloqueada
+
+🕒 Data de desbloqueio: 12/05/2026 14:30:00
+```
+
+---
+
+# 🚀 Como executar
+
+1. Coloque os arquivos em uma pasta local (htdocs ou similar)
+2. Inicie um servidor PHP (XAMPP, Laragon ou php -S)
+3. Acesse o `index.php` no navegador
+
+Exemplo via terminal:
 
 ```bash
-php index.php
+php -S localhost:8000
 ```
-
----
-
-# 💻 Exemplo de Saída
-
-```txt
-Conquista adicionada com sucesso!
-
-=== CONQUISTA ===
-Título: Concluir Modo Campanha
-Descrição: Finalize todas as missões principais
-Jogo: GTA 7
-Jogador: Fulano
-Progresso: 50%
-Status: Bloqueada
-
-=== CONQUISTA ===
-Título: Concluir Modo Campanha
-Descrição: Finalize todas as missões principais
-Jogo: GTA 7
-Jogador: Fulano
-Progresso: 100%
-Status: Desbloqueada
-Data: 12/05/2026 14:30:00
-```
-
----
-
-# 📚 Conceitos Aplicados
-
-- Encapsulamento
-- Classes e Objetos
-- Métodos Getters e Setters
-- Associação entre classes
-- Organização modular do sistema
 
 ---
 
 # 👨‍💻 Autor
 
-Projeto desenvolvido para fins acadêmicos e prática de Programação Orientada a Objetos em PHP.
+Projeto desenvolvido para fins de estudo de **PHP + POO**, focado em prática de classes, objetos e formulários HTML.
