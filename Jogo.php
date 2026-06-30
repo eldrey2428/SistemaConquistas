@@ -1,7 +1,9 @@
 <?php
+
     class Jogo {
         private $id;
         private $nome;
+        private $conquistas = array();
 
         public function __construct($id, $nome) {
             $this->id = $id;
@@ -23,5 +25,14 @@
         public function setNome($nome) {
             $this->nome = $nome;
         }
+
+        public function adicionarConquista($conquista) {
+            $this->conquistas[] = $conquista;
+        }
+
+        public function listarConquista() {
+            return $this->conquistas;
+        }
     }
+
 ?>

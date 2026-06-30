@@ -1,4 +1,5 @@
 <?php
+
     class Jogador {
         private $id;
         private $nome;
@@ -23,5 +24,14 @@
         public function setNome($nome) {
             $this->nome = $nome;
         }
+
+        public function desbloquearConquista($conquista) {
+            $conquista->getProgresso()->marcarComoCompleto();
+        }
+
+        public function listarConquista($conquista) {
+            $conquista->exibirDetalhes();
+        }
     }
+
 ?>

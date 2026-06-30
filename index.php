@@ -2,7 +2,11 @@
     require "Jogo.php";
     require "Jogador.php";
     require "Progresso.php";
+    require "Recompensa.php";
+    require "RecompensaXP.php";
+    require "RecompensaItem.php";
     require "Conquista.php";
+    require "ConquistaRara.php";
 ?>
 
 <!DOCTYPE html>
@@ -35,6 +39,25 @@
             <input type="number" name="progresso" min="0" max="100" required>
             <br><br>
 
+            <label>Nível de Raridade da Conquista:</label><br>
+            <input type="text" name="nivelRaridade" placeholder="Ex: Lendária, Rara, Comum" required>
+            <br><br>
+
+            <label>Tipo de Recompensa:</label><br>
+            <select name="tipoRecompensa">
+                <option value="xp">XP</option>
+                <option value="item">Item</option>
+            </select>
+            <br><br>
+
+            <label>Quantidade de XP (se a recompensa for XP):</label><br>
+            <input type="number" name="quantidadeXP" min="0" value="0">
+            <br><br>
+
+            <label>Nome do Item (se a recompensa for Item):</label><br>
+            <input type="text" name="nomeItem">
+            <br><br>
+
             <button type="submit">Cadastrar</button>
 
         </form>
@@ -59,12 +82,32 @@
                     $progresso->marcarComoCompleto();
                 }
 
-                // Criando objeto conquista
-                $conquista = new Conquista(
-                    1, $_POST['nomeConquista'], "Conquista criada pelo formulário", $jogo, $jogador, $progresso);
+                // Criando objeto recompensa conforme o tipo escolhido
+                if ($_POST['tipoRecompensa'] == "xp") {
+                    $recompensa = new RecompensaXP($_POST['quantidadeXP']);
+                } else {
+                    $recompensa = new RecompensaItem($_POST['nomeItem']);
+                }
 
-                // Exibir conquista
-                $conquista->listarConquista();
+                // Criando objeto conquista rara (subclasse de Conquista)
+                $conquista = new ConquistaRara(
+                    1,
+                    $_POST['nomeConquista'],
+                    "Conquista criada pelo formulário",
+                    $jogo,
+                    $jogador,
+                    $progresso,
+                    $recompensa,
+                    $_POST['nivelRaridade']
+                );
+
+                // Adicionando conquista ao jogo
+                $jogo->adicionarConquista($conquista);
+
+                // Exibindo detalhes da conquista
+                $conquista->exibirDetalhes();
+
+                echo "Nível de Raridade: " . $conquista->getNivelRaridade() . "<br><br>";
             }
 
         ?>
